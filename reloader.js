@@ -28,7 +28,12 @@ Reloader = {
 
   reload() {
     this.prereload()
-    window.location.replace(window.location.href);
+    // https://github.com/meteor/meteor/blob/devel/packages/reload/reload.js#L220
+    if (window.location.hash || window.location.href.endsWith("#")) {
+      window.location.reload();
+    } else {
+      window.location.replace(window.location.href);
+    }
   },
 
 
